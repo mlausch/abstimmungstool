@@ -1,0 +1,29 @@
+Das Abstimmungstool ist durch den Bedarf entstanden, bei einer Vereins
+Mitgliederversammlung möglichst einfach Abstimmungen durchzuführen. Dabei
+wurde Wert drauf gelegt, dass der Blick auf das wesentliche gelenkt wird und
+somit intutitiv zu verwenden ist.
+
+Der hier umgesetzte Grundgedanke ist der, dass jeder Teilnehmer einen 
+individuellen Link (mit einer uuid) per E-Mail bekommt, mit dem ein Teilnehmer
+auf eingepflegte Fragen abstimmen kann. Hierbei kann ein Teilnehmer auf eine
+Frage nur einmal stimmen. Welche Antwort von einem Teilnehmer ausgewählt wurde
+wird ganz bewusst nicht gespeichert.
+Mit diesen kriterien genügt das Tool auch für eine geheime Wahl.
+
+
+Das Tool ist in python implementiert und wird als cgi über einen Webserver
+ausgeliefert. Im wesentlichen besteht das tool aus zwei Seiten.
+
+Der index.py, welche der Teilnehmer mit der uuid aufruft und das moderator.py,
+welches durch die Moderatoren verwendet wird um Teilnehmer einzuladen und
+Fragen einzupflegen. Ebenso werden dort auch die Abstimmungsergebnisse
+angezeigt.
+
+die moderator.py sollte z.b. durch einen htaccess schutz für Zugriff geschützt
+werden. Ebenso, sollte man natürlich darauf achten, dass die config.yaml, in
+der Datenbankzugänge konfiguriert werden, nicht vom webserver ausgeliefert
+wird. Die config.yaml kann z.B. in ein Verzeichnis außerhalb des docroot
+abgelegt werden. Hierfür muss dann in der index.py und der moderator.py der Pfad
+entsprechend angepasst werden.
+
+
