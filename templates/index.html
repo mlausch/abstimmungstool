@@ -1,0 +1,74 @@
+<html>
+ <head>
+  <meta http-equiv="refresh" content="10">
+  <title>abstimmungen</title>
+ </head>
+ <style>
+  table, th, tr, td {
+   border: 1px solid black;
+   border-collapse: collapse;
+  }
+
+  tr, td {
+   padding: 10px
+  }
+
+  .inline {
+   display: inline;
+  }
+
+  .link-button {
+   background: none;
+   border: none;
+   color: blue;
+   text-decoration: underline;
+   cursor: pointer;
+  }
+  .link-button:focus {
+   outline: none;
+  }
+
+  .link-button:active {
+   color:red;
+  }
+ </style>
+ <body bgcolor="#ffffff">
+
+ <h1>Hallo {{ name }}</h1>
+ <h2>F&uuml;r folgende Fragen kannst du Stimmen</h2>
+ <form method="post" action="index.py">
+  <input type="hidden" name="uuid" value="{{ uuid }}">
+  <table> 
+   {%- for question in questions %}
+   {%- if question['sichtbar'] == 0 %}{% continue %}{% endif %}
+   {%- if question['voted'] == 1 %}{% continue %}{% endif %}
+   <tr>
+    <td>
+     {{ question['frage'] }}
+    </td>
+    <td>
+     {%- for answer in question['answers'] %}
+     {%- if question['abgeschlossen'] == 0 %}
+     <input type="submit" value="{{ answer['antwort'] }}" name="antwort_{{ question['id'] }}_{{ answer['id'] }}" class="link-button"><br/><br/>
+     {%- else %}
+     {{ answer['antwort'] }}<br/>
+     {%- endif %}
+     {%- endfor %}
+    </td>
+   {% endfor %}
+  </table>
+ </form>
+
+ <hr/>
+  <h2>Bereits abgestimmte Fragen</h2>
+  <table> 
+   {%- for question in questions %}
+   {%- if question['voted'] == 0 %}{% continue %}{% endif %}
+   <tr>
+    <td>
+     {{ question['frage'] }}
+    </td>
+   {% endfor %}
+  </table>
+ </body>
+</html>

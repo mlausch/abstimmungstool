@@ -1,0 +1,12 @@
+---
+mysql:
+  host: localhost
+  db: abstimmung
+  user: db_user
+  pw: db_password
+
+email:
+  mailserver: localhost
+  sender: absender@example.com
+  sender_name: absender
+

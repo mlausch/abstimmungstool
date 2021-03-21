@@ -1,0 +1,14 @@
+From: {{ sender }}
+To: {{ user['email'] }}
+Subject: Teilnahmelink für Abstimmungen
+
+Hallo {{ user['name'] }},
+
+unter dem folgenden Link kannst du an den Abstimmungen zur Versammlung teilnehmen:
+https://www.fsc-pforzheim.de/abstimmungen/index.py?uuid={{ user['id'] }}
+
+Dieser Link ist personalisiert und darf daher nicht mit anderen Personen geteilt werden!
+
+Viele Grüße
+{{ sender_name }}
+

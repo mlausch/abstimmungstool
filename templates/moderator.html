@@ -1,0 +1,93 @@
+<html>
+ <head>
+  <title>auswertungen</title>
+ </head>
+ <style>
+  table, th, tr, td {
+   border: 1px solid black;
+   border-collapse: collapse;
+  }
+
+  tr, td {
+   padding: 10px
+  }
+
+  .inline {
+   display: inline;
+  }
+
+  .link-button {
+   background: none;
+   border: none;
+   color: blue;
+   text-decoration: underline;
+   cursor: pointer;
+  }
+  .link-button:focus {
+   outline: none;
+  }
+
+  .link-button:active {
+   color:red;
+  }
+ </style>
+ <body bgcolor="#ffffff">
+
+ <h1>Angelegte Frage inklusive Auswertung</h1>
+ <form method="post" action="moderator.py">
+  <table> 
+   {% for question in questions %}
+   <tr>
+    <td>
+     {{ question['frage'] }}
+    </td>
+    <td>
+     {% if question['sichtbar'] == 0 %}
+     <input type="submit" name="sichtbar_{{ question['id'] }}" value="versteckt" class="link-button"/><br/>
+     {% else %}
+     <input type="submit" name="sichtbar_{{ question['id'] }}" value="sichtbar" class="link-button"/><br/>
+     {% endif %}
+
+     {% if question['abgeschlossen'] == 0 %}
+     <input type="submit" name="abgeschlossen_{{ question['id'] }}" value="offen" class="link-button" />
+     {% else %}
+     <input type="submit" name="abgeschlossen_{{ question['id'] }}" value="abgeschlossen" class="link-button" />
+     {% endif %}
+    </td>
+    <td>
+     {% for answer in question['answers'] %}
+      {{ answer['antwort'] }}: {{ answer['stimmen'] }}<br/>
+     {% endfor %}
+    </td>
+   {% endfor %}
+  </table>
+ </form>
+
+ <h1>Neue Frage hinzuf&uuml;gen</h1>
+ <form method="post" action="moderator.py">
+   Frage: <input type="text" name="frage"><br />
+   Antworten:  <textarea name="antworten" rows="5" cols="50"></textarea><br />
+   <input type="submit" name="add" value="hinzuf&uuml;gen" />
+ </form>
+
+ <hr/>
+
+ <form method="post" actoin"moderator.py">
+  <table>
+   {%- for user in users %}
+   <tr>
+    <td>{{ user['name'] }}</td>
+    <td>{{ user['email'] }}</td>
+    <td><input type="submit" name="sendmail_{{ user['id'] }}" value="resend mail" /></td>
+   </tr>
+   {%- endfor %}
+  </table>
+ </form>
+
+ <form method="post" actoin"moderator.py">
+  <p>User hinzufügen: (Nachnahme, Vorname;e-mail)</p>
+  <textarea name="user" rows="20" cols="50"></textarea><br/>
+  <input type="submit" name="adduser" value="Hinzufügen" />
+ </form>
+ </body>
+</html>
